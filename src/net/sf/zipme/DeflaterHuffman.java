@@ -65,8 +65,11 @@ class DeflaterHuffman
   private static final int[] BL_ORDER =
   { 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
 
-  private static final String bit4Reverse =
-    "\000\010\004\014\002\012\006\016\001\011\005\015\003\013\007\017";
+  private static final char[] bit4Reverse = {
+       (char)0, (char)8, (char)4, (char)12, (char)2, (char)10, (char)6, (char)14, (char)1, (char)9, (char)5, (char)13, (char)3, (char)11, (char)7, (char)15
+  };
+  
+    //{"\000\010\004\014\002\012\006\016\001\011\005\015\003\013\007\017";
 
   class Tree {
     short[] freqs;
@@ -519,10 +522,10 @@ class DeflaterHuffman
    * Reverse the bits of a 16 bit value.
    */
   static short bitReverse(int value) {
-    return (short) (bit4Reverse.charAt(value & 0xf) << 12
-                    | bit4Reverse.charAt((value >> 4) & 0xf) << 8
-                    | bit4Reverse.charAt((value >> 8) & 0xf) << 4
-                    | bit4Reverse.charAt(value >> 12));
+    return (short) (bit4Reverse[value & 0xf] << 12
+                    | bit4Reverse[(value >> 4) & 0xf] << 8
+                    | bit4Reverse[(value >> 8) & 0xf] << 4
+                    | bit4Reverse[value >> 12]);
   }
 
   static {
